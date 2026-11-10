@@ -10,7 +10,7 @@ gsap.registerPlugin(useGSAP,ScrollTrigger);
 const Navbar = () => {
     const containerRef = useRef(null)
     useGSAP(()=>{
-
+        const tl = gsap.timeline()
     }, {scope : containerRef})
   return (
     <div ref={containerRef} className=' px-10 py-6 flex w-full justify-between items-center'>
