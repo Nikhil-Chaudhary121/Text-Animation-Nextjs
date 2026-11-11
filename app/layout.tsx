@@ -31,8 +31,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={` ${poppins.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex overflow-x-hidden flex-col">
-        <div className="flex flex-col w-full h-full">
+      <body className="  min-h-full flex overflow-x-hidden flex-col">
+        <div className="relative  flex flex-col w-full h-full">
           <Navbar/>
         {children}
         </div>

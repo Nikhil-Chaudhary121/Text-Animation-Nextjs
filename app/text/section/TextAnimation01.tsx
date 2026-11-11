@@ -19,7 +19,7 @@ const TextAnimation01 = () => {
            y :30 ,
         //    x :100,
            opacity : "0",
-        //    delay : "1" 
+           delay : "1.5" ,
         stagger : 0.3
         } )
     } , {scope : container})
