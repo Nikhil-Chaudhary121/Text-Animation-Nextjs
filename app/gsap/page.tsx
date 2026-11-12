@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { useGSAP } from "@gsap/react";
     
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 gsap.registerPlugin(useGSAP,ScrollTrigger);
 
@@ -12,8 +12,12 @@ const page = () => {
     const container = useRef(null)
     const heroText = useRef(null)
     const imgRef = useRef( null)
-    
-    useGSAP(()=> {
+
+
+    let path = "M 10 100 Q 500 100 990 100"
+    let finalPath = "M 10 100 Q 500 100 990 100"
+
+    const { contextSafe } = useGSAP(()=> {
         gsap.from("h1 p" , {
             // y : -20,
             x : 20,
@@ -83,6 +87,28 @@ const page = () => {
             }
         })
     }, {scope : container})
+
+
+     const mouseMoveFunc = contextSafe((dets: React.MouseEvent<HTMLDivElement>) => {
+        const rect = dets.currentTarget.getBoundingClientRect();
+        const x = dets.clientX - rect.left;
+        const y = dets.clientY - rect.top;
+
+        const path = `M 10 100 Q ${x} ${y} 990 100`;
+            gsap.from(".string svg path" , {
+                attr : {d : path},
+                duration : 0.3,
+                ease : "power3.out"
+            })
+                
+     })
+     const mouseLeaveFunc = contextSafe(()=> {
+        gsap.from(".string svg path" , {
+            attr : {d : finalPath} ,
+            duration : 1.5 ,
+            ease : "elastic.out(1,0.2)"
+        })
+     })
   return (
     <div ref={container} className='h-full w-full'>
         <div className=' bg-[#fdf0d5] w-screen h-screen flex justify-center items-center '>
@@ -106,10 +132,10 @@ const page = () => {
         <p className='uppercase text-[40vw] whitespace-nowrap flex '>Scroll To See Magic</p>
         </div>
         <div id='zoomPage' className=' max-w-screen w-screen h-screen max-h-screen bg-[#faedcd] flex justify-center items-center '>
-            <div className='w-[50vw] h-[50vh] bg-[#252422] rounded-xl'></div>
+            <div className='w-[50vw] h-[50vh] bg-[#252422]  rounded-xl'></div>
         </div>
         <div className='h-screen w-screen bg-[#252422] justify-center flex items-center'>
-            <div className='string'>
+            <div className='string' onMouseMove={mouseMoveFunc} onMouseLeave={mouseLeaveFunc}>
             <svg width="1000" height="200">
                     <path d="M 10 100 Q 500 100 990 100" stroke="white" fill="none" />
                 </svg>

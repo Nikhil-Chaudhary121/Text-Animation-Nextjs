@@ -30,8 +30,9 @@ const Navbar = () => {
         <div className=' flex gap-4'>
             <p><a href="/gsap">Gsap</a></p>
             <p><a href="/text">Text</a></p>
-            <p>Image</p>
-            <p>SVG</p> 
+            <p><a href="/card">Card</a></p>
+            <p><a href="/text">Svg</a></p>
+            
         </div>
     </div>
   )
