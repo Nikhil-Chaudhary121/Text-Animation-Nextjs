@@ -19,7 +19,7 @@ const Card = () => {
             rotate : `${getRandomNumber(-15 , 15)}`,
             scrollTrigger : {
                 trigger : "#cardPage",
-                markers : true , 
+                // markers : true , 
                 pin : true , 
                 scrub : 2,
                 start : "top 0%",
