@@ -1,8 +1,68 @@
+'use client'
+import {  Luckiest_Guy } from "next/font/google"
+import { gsap } from 'gsap';
+import { useGSAP } from "@gsap/react";
+    
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 
+gsap.registerPlugin(useGSAP,ScrollTrigger);
+
+const font = Luckiest_Guy({
+  variable : "--font-luckiest-guy-sans" ,
+  weight : "400"
+})
 
 const MiniProject = () => {
+  const boxRef = useRef(null);
+  const containerRef = useRef(null);
+  let tl = gsap.timeline()
+
+  useGSAP(()=>{
+    
+    gsap.to(boxRef.current, {
+      scale:3 ,
+      margin : "70px",
+      scrollTrigger : {
+        trigger :  boxRef.current,
+        scrub :1,
+        start : "top 80%",
+        end : "top 50%",
+        // markers : true,
+      }
+    })
+    gsap.to("#video", {
+      width : "450px",
+      height : "450px",
+      zIndex : 2,
+      objectFit : "cover",
+      scrollTrigger : {
+        trigger : "#video" ,
+        start : "top 60%",
+        end : "top 59%",
+        scrub : 2,
+        markers : true,
+      }
+    })
+    
+    
+  })
   return (
-    <div>MiniProject</div>
+    <div ref={containerRef} className={`${font.className}`}> 
+      <div className="h-screen w-screen bg-[#ccc5b9] flex  justify-center font-bold text-[#252422] tracking-[0.2em] font-[500] items-center">
+        <div className="flex items-center">
+          <span id="leftBoxText" className=" mx-4 text-[6rem]">PAC</span>
+        <div className="relative flex justify-center items-center">
+          <div ref={boxRef} id="box" className=" absolute mx-4 w-[80px] h-[80px] bg-[#252422]"></div>
+        <video id="video" className="  w-0 h-0" autoPlay loop muted playsInline  preload="auto" controlsList="nodownload nofullscreen noremoteplayback"  controls pointer-events-none>
+      <source src="/my-video.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+        </div>
+        <span id="rightBoxText" className=" mx-4 text-[6rem]">NYC</span>
+        </div>
+      </div>
+    </div>
   )
 }
 
